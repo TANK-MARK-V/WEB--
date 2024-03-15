@@ -1,8 +1,11 @@
 import sqlalchemy
+from sqlalchemy_serializer import SerializerMixin
 from .db_session import SqlAlchemyBase
+from flask_login import UserMixin
 
 
-class Users(SqlAlchemyBase):
+
+class Users(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'users'
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
