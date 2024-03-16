@@ -2,6 +2,8 @@ from data import db_session
 from flask import Flask
 from data import functions
 from data import get_user_api
+from clases import loginform
+from clases import user
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'TipoVikipedia'
