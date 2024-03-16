@@ -4,6 +4,7 @@ from data import functions
 from data import get_user_api
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'TipoVikipedia'
 
 
 def main():
