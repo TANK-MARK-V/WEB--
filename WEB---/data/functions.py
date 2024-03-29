@@ -7,11 +7,10 @@ def make_new_user(data: dict) -> str:
     """Функция для создания нового пользователя"""
 
     new_user = users.Users()
-    new_user.id = data['id']
     new_user.name = data['name']
     new_user.login = data['login']
-    new_user.hashed_password = data['hashed_password']
-    new_user.own_stories = data['own_stories']
+    new_user.hashed_password = hashing_password(data['hashed_password'])
+    new_user.own_stories = ''
     db_sess = db_session.create_session()
     db_sess.add(new_user)
     try:
@@ -26,7 +25,6 @@ def make_new_story(data: dict) -> str:
     """Функция для добавления истории"""
 
     new_story = stories.Stories()
-    new_story.id = data['id']
     new_story.name = data['name']
     new_story.text = data['text']
     db_sess = db_session.create_session()
@@ -62,3 +60,30 @@ def reading(sleep_id: dict):
     if not story:
         return 'Неверный ID'
     return {'name': story.name, 'text': story.text}
+
+
+def hashing_password(old_password: str) -> str:
+    alph = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    nums = '0123456789'
+    ind = 0
+    for letter in old_password.lower()[::-1]:
+        if letter in alph:
+            ind = alph.index(letter)
+            break
+        elif letter in alphabet:
+            ind = alphabet.index(letter)
+            break
+        elif letter in nums:
+            ind = int(letter)
+            break
+    password = ''
+    for i in range(len(old_password[::-1])):
+        letter = old_password[::-1][i].lower()
+        if letter in alph:
+            password += alph[(alph.index(letter) + ind % len(alph))]
+        elif letter in alphabet:
+            password += alphabet[(alphabet.index(letter) + ind % len(alphabet))]
+        elif letter in nums:
+            password += nums[(nums.index(letter) + ind % len(nums))]
+    return password
