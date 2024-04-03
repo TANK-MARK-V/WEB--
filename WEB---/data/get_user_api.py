@@ -8,12 +8,15 @@ from .functions import hashing_password
 blueprint = Blueprint('news_api', __name__, template_folder='templates')
 
 
-@blueprint.route('/api/add_user/<options>')
-def add_user(options):
-    key, name, login, password = options.split('&')
-    if key != 'making':
-        return 'Неверно введён код'
-    return make_new_user({'name': name, 'login': login, 'hashed_password': hashing_password(password)})
+@blueprint.route('/api/add_user', methods=['POST'])
+def add_user():
+    # key, name, login, password = options.split('&')
+    # if key != 'making':
+    #     return 'Неверно введён код'
+    # return make_new_user({'name': name, 'login': login, 'hashed_password': hashing_password(password)})
+    requ = request.json
+    print(requ)
+    return '1'
 
 
 @blueprint.route('/api/delete_user/<options>')
