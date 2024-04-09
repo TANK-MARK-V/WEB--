@@ -13,12 +13,16 @@
 <header>
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="/">Sleeper</a>
-        <div class="col-md-3 text-end">
+        <div class="d-flex">
+            <input type="search" name="story_id" id="story_id" class="form-control" placeholder="Введите id истории">
+            <a type="button" class="btn btn-primary" href="/sleeps">Найти</a>
+        </div>
+        <div>
             {% if buttons%}
                 <a type="button" class="btn btn-outline-primary me-2" href="/login">Войти</a>
                 <a type="button" class="btn btn-primary" href="/register">Зарегистрироваться</a>
             {% endif %}
-      </div>
+        </div>
     </nav>
 </header>
 <main role="main" class="container">
