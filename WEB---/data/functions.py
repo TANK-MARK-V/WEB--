@@ -39,7 +39,7 @@ def make_new_story(data: dict) -> str:
         return 'Удачно'
 
 
-def reading(sleep_id: dict):
+def reading(sleep_id: int):
     """Возможность читать историю по id"""
 
     db_sess = db_session.create_session()

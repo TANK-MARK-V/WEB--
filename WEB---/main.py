@@ -11,9 +11,11 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'TipoVikipedia'
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('base.html', buttons=True, title='Sleeper')
+    if request.method == 'GET':
+        return render_template('base.html', buttons=True, title='Sleeper')
+    return redirect(f'/sleeps/{request.form["story_id"]}')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -27,7 +29,7 @@ def login():
         return render_template('login.html', buttons=False, message='Неверный логин', title='Авторизация')
     if user.hashed_password != hashed_password:
         return render_template('login.html', buttons=False, message='Неверный пароль', title='Авторизация')
-    return redirect('/my_wall', title='Моя страница')
+    return 'Удачно'
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -50,13 +52,27 @@ def register():
     making = functions.make_new_user({'login': login, 'name': name, 'password': pasword})
     if making != 'Удачно':
         return render_template('register.html', buttons=False, message=making, title='Регистрация')
-    return redirect('/my_wall', title='Моя страница')
+    return making
+
+
+@app.route('/sleeps/<id>', methods=['GET'])
+def sleep(id):
+    try:
+        id = int(id)
+    except Exception:
+        return render_template('read_story.html', message='Ошибка при вводе id', buttons=False, title='Ошибка id')
+    answer = functions.reading(id)
+    if answer == 'Неверный ID':
+        return render_template('read_story.html', name='Такой истории не существует', text='', buttons=False,
+                               title='Несуществующая история')
+    return render_template('read_story.html', name=answer['name'], text=answer['text'], buttons=False,
+                           title=f'История №{id}')
 
 
 def main():
     db_session.global_init("db/sleep.db")
     app.register_blueprint(get_user_api.blueprint)
-    app.run()
+    app.run(debug=True)
 
 
 if __name__ == '__main__':

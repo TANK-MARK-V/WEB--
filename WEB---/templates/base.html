@@ -13,10 +13,12 @@
 <header>
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="/">Sleeper</a>
-        <div class="d-flex">
-            <input type="search" name="story_id" id="story_id" class="form-control" placeholder="Введите id истории">
-            <a type="button" class="btn btn-primary" href="/sleeps">Найти</a>
-        </div>
+        <form action="" method="post" class="d-flex">
+            {% if buttons%}
+                <input type="search" name="story_id" id="story_id" class="form-control" placeholder="Введите id истории">
+                <input type="submit" class="button" value="Найти">
+            {% endif %}
+        </form>
         <div>
             {% if buttons%}
                 <a type="button" class="btn btn-outline-primary me-2" href="/login">Войти</a>
@@ -29,7 +31,9 @@
     {% block content %}{% endblock %}
 </main>
 <footer>
-    <h5> Sleeper - сайт, который позволяет выкладывать любые истории анонимно, чтобы другие могли их прочитать.</h5>
+    {% if title == 'Sleeper' %}
+        <h5> Sleeper - сайт, который позволяет выкладывать любые истории анонимно, чтобы другие могли их прочитать.</h5>
+    {% endif %}
 </footer>
 </body>
 </html>
