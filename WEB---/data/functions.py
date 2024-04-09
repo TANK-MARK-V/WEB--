@@ -3,7 +3,7 @@ from . import stories
 from . import db_session
 
 
-def make_new_user(data: dict) -> str:
+def make_new_user(data: dict) -> tuple:
     """Функция для создания нового пользователя"""
 
     new_user = users.Users()
@@ -16,9 +16,9 @@ def make_new_user(data: dict) -> str:
     try:
         db_sess.commit()
     except Exception as e:
-        return f'Ошибка: {e}'
+        return (f'Ошибка: {e}',)
     else:
-        return 'Удачно'
+        return ('Удачно', new_user)
 
 
 def make_new_story(data: dict) -> str:

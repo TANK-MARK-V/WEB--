@@ -13,3 +13,6 @@ class Users(SqlAlchemyBase, UserMixin, SerializerMixin):
     login = sqlalchemy.Column(sqlalchemy.String, unique=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String)
     own_stories = sqlalchemy.Column(sqlalchemy.String)
+
+    def __repr__(self):
+        return self.name
