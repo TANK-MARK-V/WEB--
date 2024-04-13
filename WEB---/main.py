@@ -4,6 +4,7 @@ from flask import Flask
 from data import functions
 from data import get_user_api
 from data import users
+from data import stories
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'TipoVikipedia'
@@ -12,8 +13,10 @@ app.config['SECRET_KEY'] = 'TipoVikipedia'
 @app.route('/', methods=['GET', 'POST'])
 def home():
     session['username'] = ''
+    db_sess = db_session.create_session()
+    sleeps = db_sess.query(stories.Stories).all()
     if request.method == 'GET':
-        return render_template('base.html', buttons=True, title='Sleeper')
+        return render_template('homepage.html', buttons=True, title='Sleeper', sleeps=sleeps)
     return redirect(f'/sleeps/{request.form["story_id"]}')
 
 
