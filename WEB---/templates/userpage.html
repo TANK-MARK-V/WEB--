@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div align="right"><h2>{{title.replace('Страница ', '')}}</h2></div>
+    <h2>Ваши истории:</h2>
+    {% if not sleeps %}
+        <h3>У вас пока нет историй</h3>
+    {% else %}
+      {% for sleep in sleeps %}
+       <form action="" class="d-flex">
+           <h3>Название: {{sleep.name}}</h3><hr>
+           <h3>Id: {{sleep.id}}</h3>
+       </form>
+      {% endfor %}
+    {% endif %}
+    <form action="" method="post">
+        <div align="center"><h2>Написать историю</h2></div>
+        <input type="text" name="name" id="login" class="form-control" placeholder="Название истории"><br>
+        <p><textarea name="text" cols="180" rows="12"></textarea></p>
+        <input type="submit" class="button" value="Сохранить"><br><br>
+        {% if message%}
+            <div class="alert alert-warning" role="alert">{{ message }}</div>
+        {% endif %}
+    </form>
+{% endblock %}

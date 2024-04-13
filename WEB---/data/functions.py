@@ -26,7 +26,7 @@ def make_new_story(data: dict) -> str:
 
     new_story = stories.Stories()
     new_story.name = data['name']
-    new_story.text = data['text']
+    new_story.text = data['text'] + ' '
     db_sess = db_session.create_session()
     db_sess.add(new_story)
     user = db_sess.query(users.Users).filter(users.Users.id == data['user_id']).first()
