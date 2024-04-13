@@ -52,8 +52,8 @@ def register():
     making = functions.make_new_user({'login': login, 'name': name, 'password': pasword})
     if making[0] != 'Удачно':
         return render_template('register.html', buttons=False, message=making, title='Регистрация')
-    session['username'] = making[1].name
-    return redirect(f'/my_wall/{making[1].name}')
+    session['username'] = making[1]
+    return redirect(f'/my_wall/{making[1]}')
 
 
 @app.route('/sleeps/<id>', methods=['GET'])

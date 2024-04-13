@@ -18,7 +18,7 @@ def make_new_user(data: dict) -> tuple:
     except Exception as e:
         return (f'Ошибка: {e}',)
     else:
-        return ('Удачно', new_user)
+        return ('Удачно', new_user.name)
 
 
 def make_new_story(data: dict) -> str:
