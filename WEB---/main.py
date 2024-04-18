@@ -1,6 +1,5 @@
-from flask import render_template, request, redirect, session
+from flask import render_template, request, redirect, session, Flask
 from data import db_session
-from flask import Flask
 from data import functions
 from data import get_user_api
 from data.users import Users
